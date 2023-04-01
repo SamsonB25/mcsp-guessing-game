@@ -1,13 +1,22 @@
 .info {
+    align-items: center;
     width: 650px;
     border-radius: 30px;
-    border: 10px solid seagreen;
-    background-color: saddlebrown;
+    border: 10px solid rgb(0, 89, 255);
+    background-color: rgb(61, 61, 61);
     padding: 5px;
     font-weight: bolder;
     color: whitesmoke
 }
 
 strong {
-    color: palegreen;
+    color: rgb(255, 251, 0);
+}
+
+h1 {
+    color: gold;
+}
+
+h2 {
+    color: rgb(0, 89, 255);
 }

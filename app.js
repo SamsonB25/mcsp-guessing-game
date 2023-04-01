@@ -118,6 +118,7 @@
 // }
 // play();
 
+// creates a random number between 1 and n
 function secretNum(n) {
     return Math.floor(Math.random() * n) + 1;
   }
@@ -136,7 +137,7 @@ function secretNum(n) {
     let number = parseInput(prompt(message));
   
     while (!Number.isInteger(number) && number !== null) {
-      number = parseInput(prompt("Please enter an integer."));
+      number = parseInput(prompt(`Please enter an integer. EX: 3`));
     }
   
     return number;
@@ -146,8 +147,8 @@ function secretNum(n) {
   
   function play() {
     let count = 1;
-    let secretNumber = secretNum(10);
-    let guess = game("Guess a number.");
+    let guess = game("Guess a number between 1 and 20.");
+    let secretNumber = secretNum(20);
     let guesses = [guess];
   
     while (guess !== secretNumber) {
@@ -169,13 +170,15 @@ function secretNum(n) {
       guesses.push(guess);
     }
   
-    alert(`WOW! You did it ${name}! \nIt only took you ${count} attempt(s)! \nYour attempt(s) were: ${guesses}!`);
+    alert(`WOW! You did it ${name}! \nIt only took you ${count} attempt(s)! \nYou guessed: ${guesses}!`);
 
-    let playAgain = prompt("Do you wan to play again Y/N?");
-    if (playAgain.toLocaleLowerCase == 'Y') {
+    let playAgain = prompt(`Do you wan to play again Y/N?`);
+    if (playAgain === 'y' || playAgain === 'Y') {
         return play();
+    } else if (playAgain == "n" || playAgain === 'N') {
+        alert(`Goodbye! \nPlay again soon!`);
     } else {
-        alert('Goodbye!');
+      alert(`${name} :(\nI thought you could read.\nGet your glasses and try again later.`)
     }
   }
   
