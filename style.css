@@ -1,5 +1,5 @@
 .info {
-    align-items: center;
+    text-align: left;
     width: 650px;
     border-radius: 30px;
     border: 10px solid rgb(0, 89, 255);
@@ -15,8 +15,43 @@ strong {
 
 h1 {
     color: gold;
+    text-align: center;
 }
 
 h2 {
     color: rgb(0, 89, 255);
+    text-align: center;
+}
+
+.container {
+    height: 40px;
+    position: relative;
+}
+
+.center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+button {
+    height: 30px;
+    width: 100px;
+    text-align: center;
+    background-color:rgb(61, 61, 61);
+    color:rgb(255, 251, 0);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.info {
+    margin: 0;
+    position: absolute;
+    top: 31%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
 }

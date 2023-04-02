@@ -143,9 +143,16 @@ function secretNum(n) {
     return number;
   }
 
-  let name = prompt("Enter your name to start!");
-  console.log(name);
+  let name = prompt("Enter your name!");
+  if (name === null) {
+    alert("Smell you later stinky!");
+  } else {
+  }
+
   function play() {
+    if (name === null) {
+      return;
+    }
     let count = 1;
     let guess = game("Guess a number between 1 and 20.");
     let secretNumber = secretNum(20);
@@ -172,10 +179,10 @@ function secretNum(n) {
   
     alert(`WOW! You did it ${name}! \nIt only took you ${count} attempt(s)! \nYou guessed: ${guesses}!`);
 
-    let playAgain = prompt(`Do you wan to play again Y/N?`);
+    let playAgain = prompt(`Do you want to play again Y/N?`);
     if (playAgain === 'y' || playAgain === 'Y') {
         return play();
-    } else if (playAgain == "n" || playAgain === 'N') {
+    } else if (playAgain == "n" || playAgain === 'N' || playAgain === null) {
         alert(`Goodbye! \nPlay again soon!`);
     } else {
       alert(`${name} :(\nI thought you could read.\nGet your glasses and try again later.`)
