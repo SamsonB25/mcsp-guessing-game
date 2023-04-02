@@ -144,7 +144,7 @@ function secretNum(n) {
   }
 
   let name = prompt("Enter your name to start!");
-  
+  console.log(name);
   function play() {
     let count = 1;
     let guess = game("Guess a number between 1 and 20.");
