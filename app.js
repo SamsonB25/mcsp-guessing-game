@@ -148,11 +148,19 @@ function secretNum(n) {
     alert("Smell you later stinky!");
   } else {
   }
-
+  let stats = {
+      name: "",
+      bestScore: undefined,
+      prevScore: undefined,
+  };
   function play() {
+
     if (name === null) {
       return;
+    } else {
+      stats.name = name;
     }
+    console.log(stats);
     let count = 1;
     let guess = game("Guess a number between 1 and 20.");
     let secretNumber = secretNum(20);
@@ -176,18 +184,36 @@ function secretNum(n) {
   
       guesses.push(guess);
     }
-  
-    alert(`WOW! You did it ${name}! \nIt only took you ${count} attempt(s)! \nYou guessed: ${guesses}!`);
-
+    if (count === stats.prevScore) {
+    stats.prevScore = count;
+      alert(`WOW! You did it ${name}!\nIt only took you ${count} attempt(s)!\nYou didn't do better or worse.\nYou guessed: ${guesses}!`);
+    } else if (count < stats.prevScore) {
+      stats.bestScore = count;
+      alert(`WOW! You did it ${name}!\nIt only took you ${count} attempt(s)!\nYou did ${count - stats.prevScore} attempt(s) better!\nYou guessed: ${guesses}!`);
+      stats.prevScore = count;
+    }  else if (count > stats.prevScore) {
+      stats.bestScore = count;
+      alert(`WOW! You did it ${name}!\nIt only took you ${count} attempt(s)!\nYou did ${stats.prevScore - count} attempt(s) worse!\nYou guessed: ${guesses}!`);
+      stats.prevScore = count;
+    } else if(stats.bestScore === undefined) {
+      stats.bestScore = count;
+      alert("WOW! You did it " + name + "!" + "\n" + "It only took you " + count + " attempt(s)!" + "\n" + "You guessed: " + guesses + "!");
+      stats.prevScore = count;
+    }
     let playAgain = prompt(`Do you want to play again Y/N?`);
     if (playAgain === 'y' || playAgain === 'Y') {
+      stats.prevScore = count;
+      stats.bestScore = undefined;
+      console.log(stats)
         return play();
     } else if (playAgain == "n" || playAgain === 'N' || playAgain === null) {
         alert(`Goodbye! \nPlay again soon!`);
+        stats.bestScore = count;
     } else {
       alert(`${name} :(\nI thought you could read.\nGet your glasses and try again later.`)
     }
   }
+  
   
   play();
 
