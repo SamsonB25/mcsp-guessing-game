@@ -122,7 +122,7 @@
 function secretNum(n) {
     return Math.floor(Math.random() * n) + 1;
   }
-  
+// ensures that we recieve an integer
   function parseInput(string) {
     if (string === "") {
       return NaN;
@@ -133,6 +133,7 @@ function secretNum(n) {
     }
   }
   
+// prompts a message to user and ensures that their entry is an integer
   function game(message) {
     let number = parseInput(prompt(message));
   
@@ -143,29 +144,45 @@ function secretNum(n) {
     return number;
   }
 
+// prompts user to enter their name.
+// if they click cancel they will be alerted a message
   let name = prompt("Enter your name!");
   if (name === null) {
     alert("Smell you later stinky!");
-  } else {
   }
+
+// stats will store the name and results of the current and previous game
   let stats = {
       name: "",
-      bestScore: undefined,
+      score: undefined,
       prevScore: undefined,
   };
+
+// play will run the guessing game
   function play() {
 
+  // if the name variable is null the game will not start
+  // if not the game() will run and store the name value in the stats object
     if (name === null) {
       return;
     } else {
       stats.name = name;
     }
     console.log(stats);
+
+  // count is one since the best anyone can do is 1.
     let count = 1;
+
+  // the guess variable runs the game() function
     let guess = game("Guess a number between 1 and 20.");
+
+
     let secretNumber = secretNum(20);
+
+
     let guesses = [guess];
   
+  // if user clicks cancle they will be sent an alert and the play() function will end
     while (guess !== secretNumber) {
       if (guess === null) {
         alert("Goodbye!");
@@ -188,15 +205,12 @@ function secretNum(n) {
     stats.prevScore = count;
       alert(`WOW! You did it ${name}!\nIt only took you ${count} attempt(s)!\nYou didn't do better or worse.\nYou guessed: ${guesses}!`);
     } else if (count < stats.prevScore) {
-      stats.bestScore = count;
-      alert(`WOW! You did it ${name}!\nIt only took you ${count} attempt(s)!\nYou did ${count - stats.prevScore} attempt(s) better!\nYou guessed: ${guesses}!`);
+      alert(`WOW! You did it ${name}!\nIt only took you ${count} attempt(s)!\nYou did ${stats.prevScore - count} attempt(s) better!\nYou guessed: ${guesses}!`);
       stats.prevScore = count;
     }  else if (count > stats.prevScore) {
-      stats.bestScore = count;
-      alert(`WOW! You did it ${name}!\nIt only took you ${count} attempt(s)!\nYou did ${stats.prevScore - count} attempt(s) worse!\nYou guessed: ${guesses}!`);
+      alert(`WOW! You did it ${name}!\nIt only took you ${count} attempt(s)!\nYou did ${count - stats.prevScore} attempt(s) worse!\nYou guessed: ${guesses}!`);
       stats.prevScore = count;
     } else if(stats.bestScore === undefined) {
-      stats.bestScore = count;
       alert("WOW! You did it " + name + "!" + "\n" + "It only took you " + count + " attempt(s)!" + "\n" + "You guessed: " + guesses + "!");
       stats.prevScore = count;
     }
@@ -213,7 +227,6 @@ function secretNum(n) {
       alert(`${name} :(\nI thought you could read.\nGet your glasses and try again later.`)
     }
   }
-  
   
   play();
 
