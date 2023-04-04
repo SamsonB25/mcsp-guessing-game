@@ -58,8 +58,8 @@
 //         alert("Enter an integer EX: 100");
 //     } else {
 //        if (number == secretNum) {
-//         alert("You Got It! " 
-//         + '\n'  + "It took you " + count + " attempt(s)!" 
+//         alert("You Got It! "
+//         + '\n'  + "It took you " + count + " attempt(s)!"
 //         + '\n' + "Your guesses where: " + guesses.join(', ') + '!');
 //         break;
 //     }  else if(number > secretNum) {
@@ -100,8 +100,8 @@
 //              alert("Enter an integer EX: 100");
 //             } else {
 //             if (number == secretNum) {
-//                  alert("You Got It " + name + '!' 
-//                  + '\n'  + "It took you " + count + " attempt(s)!" 
+//                  alert("You Got It " + name + '!'
+//                  + '\n'  + "It took you " + count + " attempt(s)!"
 //                  + '\n' + "Your guesses where: " + guesses.join(', ') + '!');
 //         break;
 //     }  else if(number > secretNum) {
@@ -120,118 +120,120 @@
 
 // creates a random number between 1 and n
 function secretNum(n) {
-    return Math.floor(Math.random() * n) + 1;
-  }
+  return Math.floor(Math.random() * n) + 1;
+}
 // ensures that we recieve an integer
-  function parseInput(string) {
-    if (string === "") {
-      return NaN;
-    } else if (string === null) {
-      return null;
-    } else {
-      return Number(string);
-    }
+function parseInput(string) {
+  if (string === "") {
+    return NaN;
+  } else if (string === null) {
+    return null;
+  } else {
+    return Number(string);
   }
-  
+}
+
 // prompts a message to user and ensures that their entry is an integer
-  function game(message) {
-    let number = parseInput(prompt(message));
-  
-    while (!Number.isInteger(number) && number !== null) {
-      number = parseInput(prompt(`Please enter an integer. EX: 3`));
-    }
-  
-    return number;
+function game(message) {
+  let number = parseInput(prompt(message));
+
+  while (!Number.isInteger(number) && number !== null) {
+    number = parseInput(prompt(`Please enter an integer. EX: 3`));
   }
 
-// prompts user to enter their name.
-// if they click cancel they will be alerted a message
-  let name = prompt("Enter your name!");
-  if (name === null) {
-    alert("Smell you later stinky!");
-  }
+  return number;
+}
 
 // stats will store the name and results of the current and previous game
-  let stats = {
-      name: "",
-      score: undefined,
-      prevScore: undefined,
-  };
+
+let playAgain = function () {
+  if (game === null) {
+    return;
+  }
+  let again = prompt(`Do you want to play again Y/N?`);
+  if (again === "y" || again === "Y") {
+    return play();
+  } else if (again === "n" || again === "N" || again === null) {
+    alert(`Goodbye!\nPlay again soon!`);
+    return;
+  } else {
+    alert(`thought you could read.\nGet your glasses and try again later.`);
+    return;
+  }
+};
+let stats = {};
 
 // play will run the guessing game
-  function play() {
-
+function play() {
+  let count = 1;
+  // prompts user to enter their name.
+  // if they click cancel they will be alerted a messageSam
+  let name = prompt("Enter your name!");
   // if the name variable is null the game will not start
-  // if not the game() will run and store the name value in the stats object
-    if (name === null) {
-      return;
-    } else {
-      stats.name = name;
-    }
-    console.log(stats);
-
-  // count is one since the best anyone can do is 1.
-    let count = 1;
+  if (name === null) {
+    alert("Smell you later stinky!");
+    return;
+  }
 
   // the guess variable runs the game() function
-    let guess = game("Guess a number between 1 and 20.");
+  let guess = game("Guess a number between 1 and 20.");
 
+  // secret number runs the secret num function
+  let secretNumber = secretNum(20);
 
-    let secretNumber = secretNum(20);
+  // guesses stores the user provided guesses
+  let guesses = [guess];
 
-
-    let guesses = [guess];
-  
-  // if user clicks cancle they will be sent an alert and the play() function will end
-    while (guess !== secretNumber) {
-      if (guess === null) {
-        alert("Goodbye!");
-        return;
-      }
-  
-      if (guess < secretNumber) {
-        guess =game(`${name}... Geuss higher!`);
-        count++;
-        
-      } else {
-        guess = game(`${name}... Geuss lower!`);
-        count++;
-        
-      }
-  
-      guesses.push(guess);
+  // if user clicks cancel they will be sent an alert and the play() function will end
+  while (guess !== secretNumber) {
+    if (guess === null) {
+      alert("Goodbye!");
+      return;
     }
-    if (count === stats.prevScore) {
-    stats.prevScore = count;
-      alert(`WOW! You did it ${name}!\nIt only took you ${count} attempt(s)!\nYou didn't do better or worse.\nYou guessed: ${guesses}!`);
-    } else if (count < stats.prevScore) {
-      alert(`WOW! You did it ${name}!\nIt only took you ${count} attempt(s)!\nYou did ${stats.prevScore - count} attempt(s) better!\nYou guessed: ${guesses}!`);
-      stats.prevScore = count;
-    }  else if (count > stats.prevScore) {
-      alert(`WOW! You did it ${name}!\nIt only took you ${count} attempt(s)!\nYou did ${count - stats.prevScore} attempt(s) worse!\nYou guessed: ${guesses}!`);
-      stats.prevScore = count;
-    } else if(stats.bestScore === undefined) {
-      alert("WOW! You did it " + name + "!" + "\n" + "It only took you " + count + " attempt(s)!" + "\n" + "You guessed: " + guesses + "!");
-      stats.prevScore = count;
-    }
-    let playAgain = prompt(`Do you want to play again Y/N?`);
-    if (playAgain === 'y' || playAgain === 'Y') {
-      stats.prevScore = count;
-      stats.bestScore = undefined;
-      console.log(stats)
-        return play();
-    } else if (playAgain == "n" || playAgain === 'N' || playAgain === null) {
-        alert(`Goodbye! \nPlay again soon!`);
-        stats.bestScore = count;
+
+    if (guess < secretNumber) {
+      guess = game(`${name}... Geuss higher!`);
+      count++;
     } else {
-      alert(`${name} :(\nI thought you could read.\nGet your glasses and try again later.`)
+      guess = game(`${name}... Geuss lower!`);
+      count++;
     }
+    // push guess attempts to the guesses array
+    guesses.push(guess);
   }
-  
-  play();
 
+  // possible outputs for user that has played already
+  if (stats[name]) {
+    let prevGuesses = stats[name];
+    if (guess === secretNumber && prevGuesses > count) {
+      let bestScore = prevGuesses - count;
+      alert(
+        `WOW! You did it ${name}!\nIt only took you ${count} attempt(s)!\nYou did ${bestScore} attempt(s) better!\nYou guessed: ${guesses}!`
+      );
+    } else if (guess === secretNumber && prevGuesses < count) {
+      let worseScore = count - prevGuesses;
+      alert(
+        `WOW! You did it ${name}!\nIt only took you ${count} attempt(s)!\nYou did ${worseScore} attempt(s) worse!\nYou guessed: ${guesses}!`
+      );
+    } else {
+      alert(
+        `WOW! You did it ${name}!\nIt only took you ${count} attempt(s)!\nYou didn't do better or worse.\nYou guessed: ${guesses}!`
+      );
+    }
+    stats[name];
+    stats[name] = count;
+  }
 
+  // output for first time user
+  if (stats[name] === undefined) {
+    alert(`WOW! You did it ${name}!\nIt took you ${count} attempt(s)!`);
+    stats[name];
+    stats[name] = count;
+  }
 
+  console.log(stats);
+  // run the play again prompt
+  playAgain();
+}
 
-
-
+//play();
